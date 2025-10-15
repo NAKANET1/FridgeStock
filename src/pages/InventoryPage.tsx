@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
 import CategoryFilter from "../components/CategoryFilter";
 import ShoppingList from "../components/ShoppingList";
 import FooterNavi from "../components/Navi";
+import AddButton from "../components/AddButton";
 
 const items = [
   { name: "たまご", category: "冷蔵", date: "2025/09/01" },
@@ -14,20 +16,19 @@ const items = [
 const InventoryPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const categories = ["冷蔵", "冷凍", "常温"];
 
-  // フィルタリング処理
   const filteredItems = items.filter((item) => {
     const matchCategory =
       selectedCategory === null || item.category === selectedCategory;
-    const matchSearch =
-      searchQuery === "" || item.name.includes(searchQuery);
+    const matchSearch = searchQuery === "" || item.name.includes(searchQuery);
     return matchCategory && matchSearch;
   });
 
   return (
-    <div className="min-h-screen pb-20 bg-gray-50">
+    <div className="min-h-screen pb-24 bg-gray-50 relative">
       <h1 className="text-xl font-bold text-center py-4">在庫管理ページ</h1>
 
       {/* 検索バー */}
@@ -46,17 +47,16 @@ const InventoryPage: React.FC = () => {
         onCategoryChange={setSelectedCategory}
         className="px-4 mb-4"
       />
-
       {/* リスト */}
       <ShoppingList items={filteredItems} />
 
       {/* 追加ボタン */}
-      <button className="fixed bottom-20 right-6 bg-gray-800 text-white rounded-full w-14 h-14 flex items-center justify-center text-3xl shadow-lg">
-        +
-      </button>
+      <AddButton to="/add-item" />
 
-      {/* フッターメニュー */}
-      <FooterNavi />
+      <div className="fixed bottom-0 left-0 w-full z-50">
+        {/* フッターメニュー */}
+        <FooterNavi />
+      </div>
     </div>
   );
 };
