@@ -1,3 +1,4 @@
+import React from "react"
 import CategoryButton from "./CategoryButton"
 
 interface CategoryFilterProps {
@@ -14,8 +15,7 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
   className = "",
 }) => {
   return (
-    <div className={className}>
-
+    <div className={`my-[30px] ${className}`}>
       <div className="mb-2 font-medium text-gray-700">カテゴリー</div>
 
       <div className="flex gap-2 overflow-x-auto pb-2">

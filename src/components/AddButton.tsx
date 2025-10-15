@@ -1,13 +1,33 @@
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const AddButton: React.FC = () => {
+interface AddButtonProps {
+  to?: string; // 遷移先
+  onClick?: () => void; // 任意のクリックイベント
+}
+
+const AddButton: React.FC<AddButtonProps> = ({ to, onClick }) => {
   const navigate = useNavigate();
 
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    } else if (to) {
+      navigate(to);
+    }
+  };
+
   return (
-    <button
-      onClick={() => navigate("/add-item")}
-      className="fixed bottom-16 right-6 bg-blue-500 text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center text-2xl"
-    >
+<button
+  onClick={handleClick}
+  className="
+    bg-blue-500 hover:bg-blue-600 text-white
+    rounded-full w-16 h-16
+    flex items-center justify-center
+    text-4xl shadow-lg transition-all duration-200
+    z-[60]
+  "
+>
       ＋
     </button>
   );
