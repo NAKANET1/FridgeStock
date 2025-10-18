@@ -2,8 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 interface AddButtonProps {
-  to?: string; // 遷移先
-  onClick?: () => void; // 任意のクリックイベント
+  to?: string;
+  onClick?: () => void;
 }
 
 const AddButton: React.FC<AddButtonProps> = ({ to, onClick }) => {
